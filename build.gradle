@@ -1,0 +1,31 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '8.0.2' apply false
+    id 'com.android.library' version '8.0.2' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.20' apply false
+}
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+
+@RunWith(AndroidJUnit4::class)
+class MainActivityTest {
+
+    @get:Rule
+            val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Test
+    fun testCompareButton() {
+        onView(withId(R.id.editText1)).perform(typeText("5"))
+        onView(withId(R.id.editText2)).perform(typeText("3"))
+        onView(withId(R.id.buttonCompare)).perform(click())
+        onView(withId(R.id.textResult)).check(withText("El primer valor es mayor"))
+    }
+}
